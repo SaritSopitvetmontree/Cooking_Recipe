@@ -1,11 +1,13 @@
 import React from 'react';
-import MainLayout from '../components/Layout/MainLayout';
+import TopBar from '../components/TopBar';
+import SideBar from '../components/SideBar';
+import CreateRecipe from '../components/CreateRecipe';
 
 const CreateRecipePage: React.FC = () => {
   return (
-    <MainLayout>
-      {/* Add your CreateRecipePage content here */}
-    </MainLayout>
+    <>
+      <CreateRecipe />
+    </>
   );
 };
 

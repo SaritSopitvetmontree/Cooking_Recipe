@@ -1,12 +1,14 @@
 import React from 'react';
-import MainLayout from '../components/Layout/MainLayout';
+import TopBar from '../components/TopBar';
+import SideBar from '../components/SideBar';
+import RecipeList from '../components/RecipeList';
 
-const CreateRecipePage: React.FC = () => {
+const RecipeListPage: React.FC = () => {
   return (
-    <MainLayout>
-      {/* Add your recipe list content here */}
-    </MainLayout>
+    <>
+      <RecipeList />
+    </>
   );
 };
 
-export default CreateRecipePage;
+export default RecipeListPage;
