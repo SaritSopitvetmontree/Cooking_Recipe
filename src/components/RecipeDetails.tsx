@@ -25,18 +25,21 @@ const RecipeDetails: React.FC<RecipeDetailsProps> = ({ recipe }) => {
 
   return (
     <Box mt={3}>
-      <Typography variant="h5">{recipe.name}</Typography>
       <Paper>
         <Box p={2}>
-          <Typography variant="subtitle1">
-            <strong>Cost:</strong> {recipe.cost}
+          <Typography variant="subtitle2">Name</Typography>
+          <Typography variant="h6">{recipe.name}</Typography>
+
+          <Typography variant="subtitle2">Recipe</Typography>
+          <Typography variant="body1">{recipe.recipe}</Typography>
+
+          <Typography variant="subtitle2">Cost</Typography>
+          <Typography variant="body1">
+            Yen {recipe.cost}
           </Typography>
-          <Typography variant="subtitle1">
-            <strong>Difficulty:</strong> {recipe.difficulty}
-          </Typography>
-          <Typography variant="subtitle1">
-            <strong>Created At:</strong> {recipe.createAt}
-          </Typography>
+
+          <Typography variant="subtitle2">Difficulty</Typography>
+          <Typography variant="body1">{recipe.difficulty}</Typography>
         </Box>
       </Paper>
     </Box>
