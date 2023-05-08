@@ -15,6 +15,7 @@ import RecipeDetails from './RecipeDetails';
 const RecipeList: React.FC = () => {
   const [recipes, setRecipes] = useState(Array());
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -22,7 +23,7 @@ const RecipeList: React.FC = () => {
         const response = await getRecipes();
         setRecipes(response);
       } catch (error) {
-        //TODO handle error
+        setError('Cannot get recipe');
       }
     };
 
@@ -35,10 +36,10 @@ const RecipeList: React.FC = () => {
 
   return (
     <Container>
-      <Typography variant="h4" mb={2}>
+      <Typography variant="h4" mb={1} mt={4}>
         Recipe list
       </Typography>
-      <Typography variant="subtitle1" mb={3}>
+      <Typography variant="subtitle1" mb={4}>
         Home / Recipe list
       </Typography>
       <TableContainer>
@@ -63,13 +64,14 @@ const RecipeList: React.FC = () => {
                 <TableCell>{recipe.name}</TableCell>
                 <TableCell>{recipe.cost}</TableCell>
                 <TableCell>{recipe.difficulty}</TableCell>
-                <TableCell>{recipe.createAt}</TableCell>
+                <TableCell>{recipe.createAt.substring(0, 10)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       {selectedRecipe && <RecipeDetails recipe={selectedRecipe} />}
+      {error}
     </Container>
   );
 };

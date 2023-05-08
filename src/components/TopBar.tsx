@@ -5,9 +5,7 @@ const TopBar: React.FC = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6">
-          Cooking App
-        </Typography>
+        <Typography variant="h6">Cooking App</Typography>
       </Toolbar>
     </AppBar>
   );
