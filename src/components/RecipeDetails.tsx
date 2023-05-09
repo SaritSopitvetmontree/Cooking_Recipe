@@ -10,7 +10,7 @@ interface Recipe {
   createAt: string;
 }
 
-interface RecipeDetailsProps {
+export interface RecipeDetailsProps {
   recipe: Recipe | null;
 }
 
