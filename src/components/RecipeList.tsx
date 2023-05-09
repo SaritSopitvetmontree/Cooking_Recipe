@@ -14,6 +14,7 @@ import RecipeDetails from './RecipeDetails';
 
 const RecipeList: React.FC = () => {
   const [recipes, setRecipes] = useState(Array());
+  const [createdRecipes, setCreatedRecipes] = useState(Array());
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [error, setError] = useState('');
 
@@ -28,6 +29,9 @@ const RecipeList: React.FC = () => {
     };
 
     fetchRecipes();
+
+    const storedRecipes = JSON.parse(localStorage.getItem('recipes') || '[]');
+    setCreatedRecipes(storedRecipes);
   }, []);
 
   const handleRowClick = (recipe: any) => {
@@ -54,12 +58,12 @@ const RecipeList: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {recipes.map((recipe: any) => (
-              <TableRow
-                key={recipe.id}
-                onClick={() => handleRowClick(recipe)}
-                style={{ cursor: 'pointer' }}
-              >
+          {recipes.concat(createdRecipes).map((recipe: any) => (
+            <TableRow
+              key={recipe.id}
+              onClick={() => handleRowClick(recipe)}
+              style={{ cursor: 'pointer' }}
+            >
                 <TableCell>{recipe.id}</TableCell>
                 <TableCell>{recipe.name}</TableCell>
                 <TableCell>{recipe.cost}</TableCell>

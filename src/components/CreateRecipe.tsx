@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -20,14 +20,12 @@ const CreateRecipe: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const response = await getRecipes();
-    let id: number = Math.max(...response.map((recipe) => recipe.id)) + 1;
-    console.log(id);
-    try {
-      const response = await createRecipe({ id, name, recipe, cost, difficulty });
-    } catch (error) {
-      console.log(error);
-    }
+    let currentRecipes = JSON.parse(localStorage.getItem('recipes') || '[]');
+    let id: number = currentRecipes.length > 0 ? Math.max(...currentRecipes.map((recipe: any) => recipe.id)) + 1 : 4;
+    const newRecipe = { id, name, recipe, cost, difficulty, createAt: new Date().toISOString() };
+
+    localStorage.setItem('recipes', JSON.stringify([...currentRecipes, newRecipe]));
+
     setName('');
     setRecipe('');
     setCost(0);
