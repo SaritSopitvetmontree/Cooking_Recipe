@@ -8,7 +8,7 @@ const SideBar: React.FC = () => {
   return (
     <List>
       <Link href="/create-recipe">
-        <ListItem>
+        <ListItem sx={{ borderBottom: '1px solid', borderTop: '1px solid', borderColor: 'divider' }}>
           <ListItemIcon>
             <AddCircleOutlineIcon />
           </ListItemIcon>
@@ -16,7 +16,7 @@ const SideBar: React.FC = () => {
         </ListItem>
       </Link>
       <Link href="/recipe-list">
-        <ListItem>
+        <ListItem sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
           <ListItemIcon>
             <ListAltIcon />
           </ListItemIcon>

@@ -9,8 +9,9 @@ import {
   Select,
   TextField,
   Typography,
+  InputAdornment,
+  Paper,
 } from '@mui/material';
-import { createRecipe, getRecipes } from '../api/recipesApi';
 
 const CreateRecipe: React.FC = () => {
   const [name, setName] = useState('');
@@ -34,45 +35,57 @@ const CreateRecipe: React.FC = () => {
 
   return (
     <Container>
-      <Typography variant="h4" mb={1} mt={4}>
+      <Typography variant="h4" pb={1} pt={4}>
         Create recipe
       </Typography>
-      <Typography variant="subtitle1" mb={4}>
+      <Typography variant="subtitle1" pb={4}>
         Home / Create recipe
       </Typography>
-      <Box component="form" onSubmit={handleSubmit}>
-        <TextField
-          label="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          label="Recipe"
-          value={recipe}
-          onChange={(e) => setRecipe(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          label="Cost"
-          value={cost}
-          onChange={(e) => setCost(Number(e.target.value))}
-          fullWidth
-          margin="normal"
-        />
-        <FormControl fullWidth margin="normal">
-          <InputLabel>Difficulty</InputLabel>
-          <Select value={difficulty} onChange={(e) => setDifficulty(e.target.value as string)}>
-            <MenuItem value="Easy">Easy</MenuItem>
-            <MenuItem value="Normal">Normal</MenuItem>
-            <MenuItem value="Hard">Hard</MenuItem>
-          </Select>
-        </FormControl>
-        <Button type="submit" variant="contained" color="primary">
-          Create
-        </Button>
+      <Box>
+        <Paper>
+          <Box component="form" onSubmit={handleSubmit} p={2}>
+            <TextField
+              label="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              sx={{ width: '50%' }}
+              margin="normal"
+            />
+            <TextField
+              label="Recipe"
+              value={recipe}
+              onChange={(e) => setRecipe(e.target.value)}
+              fullWidth
+              multiline
+              rows={4}
+              margin="normal"
+            />
+            <TextField
+              label="Cost"
+              value={cost}
+              onChange={(e) => setCost(Number(e.target.value))}
+              sx={{ width: '50%' }}
+              margin="normal"
+              InputProps={{
+                startAdornment: <InputAdornment position="start">Yen</InputAdornment>,
+              }}
+            />
+            <br />
+            <FormControl sx={{ width: '50%' }} margin="normal">
+              <InputLabel>Difficulty</InputLabel>
+              <Select value={difficulty} onChange={(e) => setDifficulty(e.target.value as string)}>
+                <MenuItem value="Easy">Easy</MenuItem>
+                <MenuItem value="Normal">Normal</MenuItem>
+                <MenuItem value="Hard">Hard</MenuItem>
+              </Select>
+            </FormControl>
+            <Box textAlign="right">
+              <Button type="submit" variant="contained" color="primary">
+                Create
+              </Button>
+            </Box>
+          </Box>
+        </Paper>
       </Box>
     </Container>
   );

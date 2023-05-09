@@ -7,6 +7,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TablePagination,
   Typography,
 } from '@mui/material';
 import { getRecipes } from '../api/recipesApi';
@@ -17,6 +18,9 @@ const RecipeList: React.FC = () => {
   const [createdRecipes, setCreatedRecipes] = useState(Array());
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [error, setError] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -38,12 +42,24 @@ const RecipeList: React.FC = () => {
     setSelectedRecipe(recipe);
   };
 
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+    setSelectedRecipe(null);
+  };
+  
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <Container>
-      <Typography variant="h4" mb={1} mt={4}>
+      <Typography variant="h4" pb={1} pt={4}>
         Recipe list
       </Typography>
-      <Typography variant="subtitle1" mb={4}>
+      <Typography variant="subtitle1" pb={4}>
         Home / Recipe list
       </Typography>
       <TableContainer>
@@ -58,7 +74,10 @@ const RecipeList: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-          {recipes.concat(createdRecipes).map((recipe: any) => (
+          {recipes
+            .concat(createdRecipes)
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((recipe: any) => (
             <TableRow
               key={recipe.id}
               onClick={() => handleRowClick(recipe)}
@@ -73,6 +92,15 @@ const RecipeList: React.FC = () => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          count={recipes.concat(createdRecipes).length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+        />
       </TableContainer>
       {selectedRecipe && <RecipeDetails recipe={selectedRecipe} />}
       {error}
