@@ -12,6 +12,7 @@ import {
   InputAdornment,
   Paper,
 } from '@mui/material';
+import { createRecipe } from '../api/recipesApi';
 
 const CreateRecipe: React.FC = () => {
   const [name, setName] = useState('');
@@ -24,8 +25,15 @@ const CreateRecipe: React.FC = () => {
     let currentRecipes = JSON.parse(localStorage.getItem('recipes') || '[]');
     let id: number = currentRecipes.length > 0 ? Math.max(...currentRecipes.map((recipe: any) => recipe.id)) + 1 : 4;
     const newRecipe = { id, name, recipe, cost, difficulty, createAt: new Date().toISOString() };
+    const newRecipeForApi = { id, name, recipe, cost, difficulty };
 
     localStorage.setItem('recipes', JSON.stringify([...currentRecipes, newRecipe]));
+
+    try {
+      await createRecipe(newRecipeForApi);
+    } catch (error) {
+      console.log(error);
+    }
 
     setName('');
     setRecipe('');
